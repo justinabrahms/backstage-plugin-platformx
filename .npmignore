@@ -1,0 +1,7 @@
+node_modules
+*.tsbuildinfo
+.turbo
+dev/
+.github/
+tsconfig.json
+.eslintrc.js
