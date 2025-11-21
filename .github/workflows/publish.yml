@@ -17,20 +17,12 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Upgrade npm to support OIDC
+        run: npm install -g npm@latest
+
       - run: npm --version
 
-      - name: Debug environment
-        run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL}"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:0:10}..."
-          env | grep -i npm || true
-
       - run: npm ci --legacy-peer-deps
-
-      - name: Configure npm for OIDC
-        run: |
-          npm config set registry https://registry.npmjs.org/
-          npm config list
 
       - run: npm publish --provenance --access public
 
