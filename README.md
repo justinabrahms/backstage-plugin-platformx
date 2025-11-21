@@ -33,22 +33,13 @@ export default createApp({
 });
 ```
 
-1. Add the tracker component to your app's root layout in
-   `packages/app/src/components/Root/Root.tsx` :
-
-```tsx
-import { PlatformXTracker } from '@justinabrahms/backstage-plugin-platformx';
-
-export const Root = ({ children }: PropsWithChildren<{}>) => (
-  <>
-    <PlatformXTracker />
-    {/* rest of your root component */}
-  </>
-);
+The plugin automatically includes a tracker component that will be rendered at
+the app root level. No additional configuration is needed!
 
 ## Usage
 
-The plugin automatically tracks page visits when users navigate through your Backstage instance. Each page visit sends:
+The plugin automatically tracks page visits when users navigate through your
+Backstage instance. Each page visit sends:
 
 - Event name: `page.visit`
 - User email (from Backstage identity)
@@ -61,6 +52,8 @@ The plugin automatically tracks page visits when users navigate through your Bac
 ### Custom Event Tracking
 
 You can also track custom events using the API:
+
+```text
 
 ```
 
