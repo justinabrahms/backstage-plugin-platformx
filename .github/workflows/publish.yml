@@ -27,4 +27,20 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
 
+      - name: Configure npm for OIDC
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config list
+
       - run: npm publish --provenance --access public
+
+      - name: Show npm logs on failure
+        if: failure()
+        run: |
+          echo "=== NPM Logs ==="
+          for log in /home/runner/.npm/_logs/*.log; do
+            if [ -f "$log" ]; then
+              echo "--- $log ---"
+              cat "$log"
+            fi
+          done
