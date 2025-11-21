@@ -19,7 +19,16 @@
   ],
   "author": "Justin Abrahms",
   "backstage": {
-    "role": "frontend-plugin"
+    "role": "frontend-plugin",
+    "pluginId": "platformx",
+    "pluginPackages": [
+      "@justinabrahms/backstage-plugin-platformx"
+    ]
+  },
+  "exports": {
+    ".": {
+      "backstage": "./src/index.ts"
+    }
   },
   "dependencies": {
     "@backstage/frontend-plugin-api": "^0.8.0",
