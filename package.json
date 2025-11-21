@@ -1,6 +1,6 @@
 {
   "name": "@justinabrahms/backstage-plugin-platformx",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Backstage plugin for tracking user page visits with PlatformX by DX",
   "main": "src/index.ts",
   "types": "src/index.ts",
