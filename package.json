@@ -27,7 +27,8 @@
   },
   "exports": {
     ".": {
-      "backstage": "./src/index.ts"
+      "backstage": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./package.json": "./package.json"
   },
