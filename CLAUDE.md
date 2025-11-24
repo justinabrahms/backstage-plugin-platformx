@@ -19,3 +19,20 @@ handles npm publishing using OIDC authentication (no OTP needed).
 
 This is a Backstage plugin using the new frontend system, designed for
 compatibility with Spotify Portal for Backstage.
+
+### Build Process
+
+**IMPORTANT:** This plugin must be built before publishing.
+
+The package uses `@backstage/cli` to compile TypeScript to JavaScript:
+
+- Source files are in `src/`
+- Compiled output goes to `dist/`
+- The `prepack` script automatically builds before publishing
+- The build process rewrites `exports` to point to `dist/` instead of `src/`
+
+To test the build locally:
+
+```bash
+npm run build
+```

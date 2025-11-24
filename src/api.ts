@@ -23,7 +23,7 @@ export class PlatformXClient implements PlatformXApi {
   private readonly apiUrl = 'https://api.getdx.com/events.track';
 
   constructor(
-    private readonly configApi: ConfigApi,
+    configApi: ConfigApi,
     private readonly identityApi: IdentityApi,
   ) {
     const config = readPlatformXConfig(configApi);

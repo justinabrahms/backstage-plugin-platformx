@@ -1,10 +1,11 @@
-import React from 'react';
+import { createElement } from 'react';
 import {
   createFrontendPlugin,
   ApiBlueprint,
   AppRootElementBlueprint,
   configApiRef,
   identityApiRef,
+  createApiFactory,
 } from '@backstage/frontend-plugin-api';
 import { platformXApiRef, PlatformXClient } from './api';
 import { PlatformXTracker } from './components';
@@ -14,8 +15,8 @@ export default createFrontendPlugin({
   extensions: [
     ApiBlueprint.make({
       name: 'platformx',
-      params: defineParams =>
-        defineParams({
+      params: {
+        factory: createApiFactory({
           api: platformXApiRef,
           deps: {
             configApi: configApiRef,
@@ -24,11 +25,12 @@ export default createFrontendPlugin({
           factory: ({ configApi, identityApi }) =>
             new PlatformXClient(configApi, identityApi),
         }),
+      },
     }),
     AppRootElementBlueprint.make({
       name: 'tracker',
       params: {
-        element: React.createElement(PlatformXTracker),
+        element: createElement(PlatformXTracker),
       },
     }),
   ],

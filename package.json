@@ -26,10 +26,7 @@
     ]
   },
   "exports": {
-    ".": {
-      "backstage": "./src/index.ts",
-      "default": "./src/index.ts"
-    },
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "dependencies": {
@@ -40,10 +37,18 @@
     "react": "^18.0.0"
   },
   "devDependencies": {
+    "@backstage/cli": "^0.28.0",
     "@types/react": "^18.0.0",
     "typescript": "^5.0.0"
   },
+  "scripts": {
+    "build": "backstage-cli package build",
+    "tsc": "tsc --build --force",
+    "clean": "backstage-cli package clean",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack"
+  },
   "files": [
-    "src"
+    "dist"
   ]
 }

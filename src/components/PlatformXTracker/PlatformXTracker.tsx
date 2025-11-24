@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useApi } from '@backstage/frontend-plugin-api';
 import { platformXApiRef } from '../../api';
 import useLocation from 'react-use/lib/useLocation';
