@@ -1,3 +1,5 @@
+console.log('[PlatformX] Plugin module importing...');
+
 import { createElement } from 'react';
 import {
   createFrontendPlugin,
@@ -32,10 +34,10 @@ export default createFrontendPlugin({
     AppRootElementBlueprint.make({
       name: 'tracker',
       params: {
-        element: (() => {
+        element: () => {
           console.log('[PlatformX] Creating tracker element');
           return createElement(PlatformXTracker);
-        })(),
+        },
       },
     }),
   ],
