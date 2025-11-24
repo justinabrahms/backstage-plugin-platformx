@@ -29,14 +29,7 @@ jobs:
           npm run tsc
           npm run build
 
-      - name: Prepare package for publishing
-        run: npm run prepack
-
       - run: npm publish --provenance --access public
-
-      - name: Restore package.json
-        if: always()
-        run: npm run postpack
 
       - name: Show npm logs on failure
         if: failure()
