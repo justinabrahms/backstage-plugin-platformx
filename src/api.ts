@@ -32,6 +32,7 @@ export class PlatformXClient implements PlatformXApi {
 
   async trackEvent(options: TrackEventOptions): Promise<void> {
     try {
+      console.log('[PlatformX] Tracking event:', options.name);
       const identity = await this.identityApi.getBackstageIdentity();
       const email = identity.userEntityRef.split(':')[1].split('/')[1];
 
@@ -42,7 +43,8 @@ export class PlatformXClient implements PlatformXApi {
         metadata: options.metadata || {},
       };
 
-      await fetch(this.apiUrl, {
+      console.log('[PlatformX] Sending to API:', { url: this.apiUrl, event: options.name, email });
+      const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,9 +52,16 @@ export class PlatformXClient implements PlatformXApi {
         },
         body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        const text = await response.text();
+        console.error('[PlatformX] API error:', response.status, text);
+      } else {
+        console.log('[PlatformX] Event tracked successfully');
+      }
     } catch (error) {
       // Silently fail to not disrupt user experience
-      console.error('Failed to track PlatformX event:', error);
+      console.error('[PlatformX] Failed to track event:', error);
     }
   }
 }

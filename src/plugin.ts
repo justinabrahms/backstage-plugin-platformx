@@ -22,16 +22,23 @@ export default createFrontendPlugin({
             configApi: configApiRef,
             identityApi: identityApiRef,
           },
-          factory: ({ configApi, identityApi }) =>
-            new PlatformXClient(configApi, identityApi),
+          factory: ({ configApi, identityApi }) => {
+            console.log('[PlatformX] Initializing API client');
+            return new PlatformXClient(configApi, identityApi);
+          },
         }),
       },
     }),
     AppRootElementBlueprint.make({
       name: 'tracker',
       params: {
-        element: createElement(PlatformXTracker),
+        element: (() => {
+          console.log('[PlatformX] Creating tracker element');
+          return createElement(PlatformXTracker);
+        })(),
       },
     }),
   ],
 });
+
+console.log('[PlatformX] Plugin module loaded');
