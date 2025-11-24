@@ -28,7 +28,8 @@
   "exports": {
     ".": {
       "backstage": "./src/index.ts"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "dependencies": {
     "@backstage/frontend-plugin-api": "^0.8.0",
