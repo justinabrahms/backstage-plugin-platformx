@@ -7,7 +7,8 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justinabrahms/backstage-plugin-platformx.git"
+    "url": "git+https://github.com/justinabrahms/backstage-plugin-platformx.git",
+    "directory": "."
   },
   "keywords": [
     "backstage",
@@ -29,6 +30,13 @@
     ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "package.json"
+      ]
+    }
+  },
   "dependencies": {
     "@backstage/frontend-plugin-api": "^0.8.0",
     "react-use": "^17.4.0"
@@ -41,6 +49,7 @@
     "@types/react": "^18.0.0",
     "typescript": "^5.0.0"
   },
+  "sideEffects": false,
   "scripts": {
     "build": "backstage-cli package build",
     "tsc": "tsc --build --force",
