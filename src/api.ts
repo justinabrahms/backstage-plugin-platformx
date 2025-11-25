@@ -19,7 +19,7 @@ export interface PlatformXApi {
 }
 
 export class PlatformXClient implements PlatformXApi {
-  private readonly apiKey: string;
+  private readonly apiKey?: string;
   private readonly apiUrl = 'https://api.getdx.com/events.track';
 
   constructor(
@@ -32,6 +32,11 @@ export class PlatformXClient implements PlatformXApi {
 
   async trackEvent(options: TrackEventOptions): Promise<void> {
     try {
+      if (!this.apiKey) {
+        console.warn('[PlatformX] Cannot track event - no API key configured');
+        return;
+      }
+
       console.log('[PlatformX] Tracking event:', options.name);
       const identity = await this.identityApi.getBackstageIdentity();
       const email = identity.userEntityRef.split(':')[1].split('/')[1];

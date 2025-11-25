@@ -1,14 +1,14 @@
 import { Config } from '@backstage/config';
 
 export interface PlatformXConfig {
-  apiKey: string;
+  apiKey?: string;
 }
 
 export function readPlatformXConfig(config: Config): PlatformXConfig {
-  const apiKey = config.getString('platformx.apiKey');
+  const apiKey = config.getOptionalString('platformx.apiKey');
 
   if (!apiKey) {
-    throw new Error('PlatformX API key is required. Please configure platformx.apiKey in app-config.yaml');
+    console.warn('[PlatformX] No API key configured. Events will not be tracked. Please configure platformx.apiKey in your app configuration.');
   }
 
   return { apiKey };
