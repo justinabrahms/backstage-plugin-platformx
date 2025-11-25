@@ -27,21 +27,17 @@ export class PlatformXClient implements PlatformXApi {
     configApi: ConfigApi,
     private readonly identityApi: IdentityApi,
   ) {
-    console.info('[PlatformX] Constructing API client...');
     const config = readPlatformXConfig(configApi);
     this.apiKey = config.apiKey;
     this.emailDomain = config.emailDomain;
-    console.info('[PlatformX] API client constructed, key configured:', !!this.apiKey);
   }
 
   async trackEvent(options: TrackEventOptions): Promise<void> {
     try {
       if (!this.apiKey) {
-        console.warn('[PlatformX] Cannot track event - no API key configured');
         return;
       }
 
-      console.info('[PlatformX] Tracking event:', options.name);
       const identity = await this.identityApi.getBackstageIdentity();
       const username = identity.userEntityRef.split(':')[1].split('/')[1];
 
@@ -55,7 +51,6 @@ export class PlatformXClient implements PlatformXApi {
         metadata: options.metadata || {},
       };
 
-      console.info('[PlatformX] Sending to API:', { url: this.apiUrl, event: options.name, email });
       const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
@@ -68,8 +63,6 @@ export class PlatformXClient implements PlatformXApi {
       if (!response.ok) {
         const text = await response.text();
         console.error('[PlatformX] API error:', response.status, text);
-      } else {
-        console.info('[PlatformX] Event tracked successfully');
       }
     } catch (error) {
       // Silently fail to not disrupt user experience
