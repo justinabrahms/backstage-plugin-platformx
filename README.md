@@ -18,6 +18,7 @@ yarn workspace app add @justinabrahms/backstage-plugin-platformx
 ```yaml
 platformx:
   apiKey: ${PLATFORMX_API_KEY}
+  emailDomain: example.com  # Optional: appends @example.com to usernames
 ```
 
 1. Add the plugin to your `packages/app/src/index.tsx`:
@@ -82,7 +83,14 @@ function MyComponent() {
 
 ### Required Configuration
 
-- `platformx.apiKey`: Your PlatformX API key (obtain from your PlatformX project settings)
+- `platformx.apiKey` : Your PlatformX API key (obtain from your PlatformX
+  project settings)
+
+### Optional Configuration
+
+- `platformx.emailDomain` : Domain to append to usernames to create full email
+  addresses (e.g., `thrivemarket.com` will convert `justin.abrahms` to
+  `justin.abrahms@thrivemarket.com` )
 
 ### Environment Variables
 

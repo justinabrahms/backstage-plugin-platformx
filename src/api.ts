@@ -20,14 +20,18 @@ export interface PlatformXApi {
 
 export class PlatformXClient implements PlatformXApi {
   private readonly apiKey?: string;
+  private readonly emailDomain?: string;
   private readonly apiUrl = 'https://api.getdx.com/events.track';
 
   constructor(
     configApi: ConfigApi,
     private readonly identityApi: IdentityApi,
   ) {
+    console.info('[PlatformX] Constructing API client...');
     const config = readPlatformXConfig(configApi);
     this.apiKey = config.apiKey;
+    this.emailDomain = config.emailDomain;
+    console.info('[PlatformX] API client constructed, key configured:', !!this.apiKey);
   }
 
   async trackEvent(options: TrackEventOptions): Promise<void> {
@@ -37,9 +41,12 @@ export class PlatformXClient implements PlatformXApi {
         return;
       }
 
-      console.log('[PlatformX] Tracking event:', options.name);
+      console.info('[PlatformX] Tracking event:', options.name);
       const identity = await this.identityApi.getBackstageIdentity();
-      const email = identity.userEntityRef.split(':')[1].split('/')[1];
+      const username = identity.userEntityRef.split(':')[1].split('/')[1];
+
+      // Construct email: append domain if configured, otherwise use username as-is
+      const email = this.emailDomain ? `${username}@${this.emailDomain}` : username;
 
       const data = {
         name: options.name,
@@ -48,7 +55,7 @@ export class PlatformXClient implements PlatformXApi {
         metadata: options.metadata || {},
       };
 
-      console.log('[PlatformX] Sending to API:', { url: this.apiUrl, event: options.name, email });
+      console.info('[PlatformX] Sending to API:', { url: this.apiUrl, event: options.name, email });
       const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
@@ -62,7 +69,7 @@ export class PlatformXClient implements PlatformXApi {
         const text = await response.text();
         console.error('[PlatformX] API error:', response.status, text);
       } else {
-        console.log('[PlatformX] Event tracked successfully');
+        console.info('[PlatformX] Event tracked successfully');
       }
     } catch (error) {
       // Silently fail to not disrupt user experience

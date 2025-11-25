@@ -1,4 +1,4 @@
-console.log('[PlatformX] Plugin module importing...');
+console.info('[PlatformX] Plugin module importing...');
 
 import { createElement } from 'react';
 import {
@@ -25,7 +25,7 @@ export default createFrontendPlugin({
             identityApi: identityApiRef,
           },
           factory: ({ configApi, identityApi }) => {
-            console.log('[PlatformX] Initializing API client');
+            console.info('[PlatformX] Initializing API client');
             return new PlatformXClient(configApi, identityApi);
           },
         }),
@@ -35,7 +35,7 @@ export default createFrontendPlugin({
       name: 'tracker',
       params: {
         element: () => {
-          console.log('[PlatformX] Creating tracker element');
+          console.info('[PlatformX] Creating tracker element');
           return createElement(PlatformXTracker);
         },
       },
@@ -43,4 +43,4 @@ export default createFrontendPlugin({
   ],
 });
 
-console.log('[PlatformX] Plugin module loaded');
+console.info('[PlatformX] Plugin module loaded');
