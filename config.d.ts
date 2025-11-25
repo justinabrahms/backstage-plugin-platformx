@@ -5,8 +5,13 @@ export interface Config {
   platformx?: {
     /**
      * PlatformX API key for tracking events
-     * @visibility secret
+     * @visibility frontend
      */
     apiKey: string;
+    /**
+     * Email domain to append to usernames (e.g., "thrivemarket.com")
+     * @visibility frontend
+     */
+    emailDomain?: string;
   };
 }
